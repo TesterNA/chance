@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Chance Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .calculator input {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        .calculator button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .calculator button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Success Chance Calculator</h2>
+        <input type="number" id="successPercent" placeholder="Enter success percent (e.g., 32)" />
+        <input type="number" id="attemptCount" placeholder="Enter number of attempts" />
+        <button onclick="calculateChance()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateChance() {
+            const successPercent = parseFloat(document.getElementById('successPercent').value) / 100;
+            const attemptCount = parseInt(document.getElementById('attemptCount').value);
+
+            if (isNaN(successPercent) || isNaN(attemptCount)) {
+                document.getElementById('result').innerText = 'Please enter valid numbers.';
+                return;
+            }
+
+            const noSuccessChance = Math.pow(1 - successPercent, attemptCount);
+            const atLeastOneSuccess = 1 - noSuccessChance;
+            const resultPercent = (atLeastOneSuccess * 100).toFixed(2);
+
+            document.getElementById('result').innerText = `Overall success chance: ${resultPercent}%`;
+        }
+    </script>
+</body>
+</html>
